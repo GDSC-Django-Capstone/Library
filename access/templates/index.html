@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<link rel="stylesheet" href="../static/css/index.css">
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class = "index_container">
+
+    <div class = "index_nav">
+        <p class="name">Library</p>
+        <div class="account">
+            <div></div>
+        </div>
+    </div>
+
+    <div class = "index_mid">
+        <input class = "index_search_input" type="text" placeholder="Search">
+        <div class="index_search_button"><div></div></div>
+    </div>
+
+    <div class = "index_bottom">
+        <div class = "book_container">
+
+            
+            <a class = link href="/login">
+                <div class="book">
+                    <div class="book_left">
+                        {% load static %}
+                        <img src="{% static 'book/20230720_180820.jpg' %}">
+                    </div>
+
+                    <div class="book_right">
+                        <p class="title">Narnia</p>
+                        <p class="author">Abebe Chala</p>
+                        <p class="genre">Thriller</p>
+                        <p class="rating">8.6/10</p>
+                    </div>
+                </div>
+            </a>
+
+
+
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+</div>
+
+
+<script src="../static/js/index.js"></script>
+{% endblock %}
