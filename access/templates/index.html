@@ -26,25 +26,23 @@
     <div class = "index_bottom">
         <div class = "book_container">
 
-            
-            <a class = link href="/login">
-                <div class="book">
-                    <div class="book_left">
-                        {% load static %}
-                        <img src="{% static 'book/20230720_180820.jpg' %}">
+            {% for i in books %}
+                <a class = link href="/book/info/{{ i.id }}">
+                    <div class="book">
+                        <div class="book_left">
+                            {% load static %}
+                            <img src="{% static i.image %}">
+                        </div>
+    
+                        <div class="book_right">
+                            <p class="title">{{ i.title }}</p>
+                            <p class="author">{{ i.author }}</p>
+                            <p class="genre">{{ i.genre }}</p>
+                            <p class="rating">{{ i.rating }}/10</p>
+                        </div>
                     </div>
-
-                    <div class="book_right">
-                        <p class="title">Narnia</p>
-                        <p class="author">Abebe Chala</p>
-                        <p class="genre">Thriller</p>
-                        <p class="rating">8.6/10</p>
-                    </div>
-                </div>
-            </a>
-
-
-
+                </a>
+            {% endfor %}
 
 
         </div>

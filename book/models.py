@@ -14,5 +14,6 @@ class Book(models.Model):
     lent = ArrayField(models.CharField(max_length=200), blank=True)
     image = models.ImageField(upload_to='./book/static/book')
 
+
     def __str__(self):
         return self.title
