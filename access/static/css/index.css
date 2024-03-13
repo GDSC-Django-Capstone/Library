@@ -116,9 +116,9 @@ body{
         }
 
             .link{
-                text-decoration: none; /* Remove underlines from the link */
-                color: inherit; /* Inherit the color from the parent (default or specified color) */
-                cursor: pointer; /* Change cursor to pointer for better user feedback */
+                text-decoration: none;
+                color: inherit;
+                cursor: pointer;
             }
 
             .book{

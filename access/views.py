@@ -3,11 +3,11 @@ from django.http import HttpResponse
 from book.models import Book
 
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+# from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
-@csrf_exempt
+
 def index(request):
     try:
         
@@ -56,12 +56,30 @@ def index(request):
         else:
             return HttpResponse("method not supported")
 
-    except Exception as e:
-            return HttpResponse(e)
+    except:
+            return HttpResponse("Unexpected Error")
 
 
 def register(request):
-    return HttpResponse("reg")
+    try:
+        if request.method == "GET":
+            return render(request,"register.html")
+        elif request.method == "POST":
+            pass
+        else:
+            return HttpResponse("method not supported")
+
+    except:
+        return HttpResponse("Unexpected Error")
 
 def login(request):
-    return HttpResponse("log")
+    try:
+        if request.method == "GET":
+            return render(request,"login.html")
+        elif request.method == "POST":
+            pass
+        else:
+            return HttpResponse("method not supported")
+
+    except:
+        return HttpResponse("Unexpected Error")

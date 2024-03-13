@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<link rel="stylesheet" href="../static/css/login.css">
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class = "register_container">
+
+    <div class = "register_nav">
+        <p class="name">Library</p>
+    </div>
+
+    <div class = "register_mid">
+        <div class = "register_mid_top">
+            
+            <div class = "register_info_div">
+                <p>Email:</p>
+                <input type="email">
+            </div>
+
+            <div class = "register_info_div">
+                <p>Password:</p>
+                <input type="password">
+            </div>
+
+        </div>
+
+        <div class = "register_mid_bottom">
+            <p>Register</p>
+            <button>Login</button>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+<script src="../static/js/login.js"></script>
+{% endblock %}
