@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from book.models import Book
+from user.models import User
 
 from django.http import JsonResponse
+import json
 # from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
@@ -54,32 +56,95 @@ def index(request):
             return JsonResponse(data)
 
         else:
-            return HttpResponse("method not supported")
+            return JsonResponse({'msg':"method not supported"})
 
     except:
-            return HttpResponse("Unexpected Error")
+            return JsonResponse({'msg':"Unexpected error, try reloading the page"})
+
+
+
+
+
+
+
+
+
+
+
 
 
 def register(request):
     try:
         if request.method == "GET":
-            return render(request,"register.html")
-        elif request.method == "POST":
-            pass
-        else:
-            return HttpResponse("method not supported")
 
-    except:
-        return HttpResponse("Unexpected Error")
+            return render(request,"register.html")
+        
+        elif request.method == "POST":
+            try:
+                data = json.loads(request.body)
+
+                new_user = User(email=data['email'],password=data['password'],fname=data['fname'],lname=data['lname'],role='user')
+                new_user.save()
+
+                request.session['uid'] = new_user.id
+                request.session['role'] = new_user.role
+                request.session['bnum'] = 0
+                request.session['cnum'] = 0
+
+
+                return JsonResponse({'msg':'User registered successfully','task':'redirect'})
+            except Exception as e:
+                return JsonResponse({'msg':str(e)})
+
+        else:
+            return JsonResponse({'msg':"method not supported"})
+
+    except Exception as e:
+        return JsonResponse({'msg':"Unexpected error, try reloading the page"})
+
+
+
+
+
+
+
+
+
+
 
 def login(request):
     try:
         if request.method == "GET":
-            return render(request,"login.html")
-        elif request.method == "POST":
-            pass
-        else:
-            return HttpResponse("method not supported")
 
-    except:
-        return HttpResponse("Unexpected Error")
+            return render(request,"login.html")
+        
+        elif request.method == "POST":
+            try:
+                data = json.loads(request.body)
+
+                user = User.objects.filter(email=data['email'])
+                
+                if (not user) or (data['password'] != user[0].password):
+                    return JsonResponse({'msg':'Incorrect email or password'})
+                
+
+                logged_user=user[0]
+
+
+                request.session['uid'] = logged_user.id
+                request.session['role'] = logged_user.role
+                request.session['bnum'] = 0
+                request.session['cnum'] = 0
+
+
+                return JsonResponse({'msg':'User logged in successfully','task':'redirect'})
+            
+            except Exception as e:
+                return JsonResponse({'msg':str(e)})
+
+        else:
+            return JsonResponse({'msg':"method not supported"})
+
+    except Exception as e:
+        return JsonResponse({'msg':"Unexpected error, try reloading the page"})
+

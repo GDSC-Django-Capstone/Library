@@ -7,8 +7,8 @@ class User(models.Model):
     password = models.CharField(max_length=30)
     fname = models.CharField(max_length=30)
     lname = models.CharField(max_length=30)
-    borrowed = ArrayField(models.CharField(max_length=200), blank=True)
-    history = ArrayField(models.CharField(max_length=200), blank=True)
+    borrowed = ArrayField(models.CharField(max_length=200), blank=True, default=list)
+    history = ArrayField(models.CharField(max_length=200), blank=True, default=list)
     banned = models.BooleanField(default=False)
     role = models.CharField(max_length=10)
 
