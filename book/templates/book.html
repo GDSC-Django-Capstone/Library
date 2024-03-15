@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<!-- <link rel="stylesheet" href="../../../django/book/static/css/book.css"> -->
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/book.css' %}">
+<!-- <link rel="stylesheet" href="../../book/static/css/book.css"> -->
+{% endblock %}
+
+
+
+{% block body %}
+
+
+<div class = "book_container">
+    
+    <div class="info_container">
+        <div class="nav"><p>Library</p></div>
+
+        <div class="info_container_top">
+            <div class="info_container_top_left">
+                {% load static %}
+                <img src="{% static image %}">
+            </div>
+
+            <div class="info_container_top_right">
+                
+                <div class="key">
+                    <div class="block"><p>Title:</p></div>
+                    <div class="block"><p>Author:</p></div>
+                    <div class="block"><p>Genre:</p></div>
+                    <div class="block"><p>Rating:</p></div>
+                    <div class="block"><p>On shelf:</p></div>
+                    <div class="block"><p>Rate:</p></div>
+                </div>
+
+                <div class="value">
+                    <div class="block"><p>{{ title }}</p></div>
+                    <div class="block"><p>{{ author }}</p></div>
+                    <div class="block"><p>{{ genre }}</p></div>
+                    <div class="block"><p>{{ rating }}/10</p></div>
+                    <div class="block"><p>{{ amount }}</p></div>
+
+                    <div class="stars">
+
+                        <div data-rating="1" class="star"></div>
+                        <div data-rating="2" class="star"></div>
+                        <div data-rating="3" class="star"></div>
+                        <div data-rating="4" class="star"></div>
+                        <div data-rating="5" class="star"></div>
+                    </div>
+
+                </div>
+                
+                
+            </div>
+        </div>
+
+        <div class="info_container_mid">
+            <p>Description</p>
+            <p>{{ description }}</p>
+        </div>
+
+        <div class="info_container_bottom">
+            <button data-id="{{ id }}">Borrow</button>
+        </div>
+    </div>
+
+    <div class="comments_container">
+        <div class="comments_container_top">
+            
+            {% for n,c in reviews %}
+                <div class="comment">
+                    <div class="comment_top">
+                        <div></div>
+                        <p>{{n}}</p>
+                    </div>
+
+                    <div class="comment_bottom">
+                        <p>{{c}}</p>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+
+        </div>
+
+        <div class="comments_container_bottom">
+            <textarea class="commentbox" placeholder="Comment here"></textarea>
+            <button>Send</button>
+        </div>
+    </div>
+
+</div>
+
+{% load static %}
+<script src="{% static 'js/book.js' %}"></script>
+{% endblock %}

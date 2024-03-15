@@ -5,11 +5,11 @@ from user.models import User
 
 from django.http import JsonResponse
 import json
-# from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
-
+@csrf_exempt
 def index(request):
     try:
         
@@ -72,7 +72,7 @@ def index(request):
 
 
 
-
+@csrf_exempt
 def register(request):
     try:
         if request.method == "GET":
@@ -111,7 +111,7 @@ def register(request):
 
 
 
-
+@csrf_exempt
 def login(request):
     try:
         if request.method == "GET":

@@ -10,8 +10,9 @@ class Book(models.Model):
     description = models.CharField(max_length=5000)
     amount = models.IntegerField(validators=[MinValueValidator(limit_value=1)] )
     rating = models.IntegerField(default=0)
-    reviews = ArrayField(models.CharField(max_length=3000), blank=True)
-    lent = ArrayField(models.CharField(max_length=200), blank=True)
+    total_rates = models.IntegerField(default=0)
+    reviews = ArrayField(models.CharField(max_length=3000), blank=True, default=list)
+    lent = ArrayField(models.CharField(max_length=200), blank=True, default=list)
     image = models.ImageField(upload_to='./book/static/book')
 
 

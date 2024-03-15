@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from book.models import Book
+from user.models import User
 
 # Create your views here.
 from django.http import JsonResponse
 import json
-# from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 
 
 
@@ -21,12 +22,21 @@ import json
 
 
 
-
-def info(request):
+@csrf_exempt
+def info(request,book_id):
     try:
         if request.method == "GET":
 
-            return render(request,"register.html")
+            book = Book.objects.get(pk=book_id)
+            image = "book/"+(str(book.image).split("/")[-1])
+
+            listed = book.reviews[-30:]
+            reviews = []
+
+            for i in range(int(len(listed)/2)):
+                reviews.insert(0,[listed[i*2],listed[(i*2)+1]])
+            
+            return render(request,"book.html", {'id':book.id,'title':book.title,'author':book.author,'genre':book.genre,'rating':book.rating,'amount':book.amount,'description':book.description,'image':image,'reviews':reviews})
         
         elif request.method == "POST":
             try:
@@ -63,48 +73,8 @@ def info(request):
 
 
 
-
-def search(request):
-    try:
-        if request.method == "GET":
-
-            return render(request,"register.html")
-        
-        elif request.method == "POST":
-            try:
-                data = json.loads(request.body)
-
-            except Exception as e:
-                return JsonResponse({'msg':str(e)})
-                
-        else:
-            return JsonResponse({'msg':"method not supported"})
-
-
-    except:
-        return JsonResponse({'msg':"Unexpected error, try reloading the page"})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def borrow(request):
+@csrf_exempt
+def search(request,book_name):
     try:
         if request.method == "GET":
 
@@ -143,17 +113,47 @@ def borrow(request):
 
 
 
-
-
-def comment(request):
+@csrf_exempt
+def borrow(request,book_id):
     try:
-        if request.method == "GET":
-
-            return render(request,"register.html")
-        
-        elif request.method == "POST":
+        if request.method == "POST":
             try:
-                data = json.loads(request.body)
+                uid = request.session.get("uid")
+
+                if not uid:
+                    return JsonResponse({'msg':"User not logged in","task":"redirect"})
+
+                user = User.objects.get(pk=uid)
+                book = Book.objects.get(pk=book_id)
+
+                borrowed_list = user.borrowed
+                number = len(borrowed_list)
+
+                if number >= 3:
+                    return JsonResponse({'msg':"You can only borrow a maximum of three books at a time"})
+
+                if book_id in borrowed_list:
+                    return JsonResponse({'msg':"You have already borrowed this book"})
+
+                if book.amount <= 0:
+                    return JsonResponse({'msg':"This book is currently unavailable"})
+                    
+                if user.banned:
+                    return JsonResponse({'msg':"You are banned from borrowing books"})
+
+
+                user.borrowed.append(book_id)
+                user.history.append(book_id)
+                user.history.append("0")
+                book.amount = book.amount-1
+
+
+
+                book.save()
+                user.save()
+
+                return JsonResponse({'msg':"Book successfully added to your borrowed list"})
+
 
             except Exception as e:
                 return JsonResponse({'msg':str(e)})
@@ -183,16 +183,118 @@ def comment(request):
 
 
 
-def rate(request):
-    try:
-        if request.method == "GET":
 
-            return render(request,"register.html")
-        
-        elif request.method == "POST":
+
+@csrf_exempt
+def comment(request,book_id):
+    try:
+        if request.method == "POST":
             try:
                 data = json.loads(request.body)
 
+                uid = request.session.get("uid")
+
+                if not uid:
+                    return JsonResponse({'msg':"User not logged in","task":"redirect"})
+
+                user = User.objects.get(pk=uid)
+                book = Book.objects.get(pk=book_id)
+                
+                history = user.history
+
+                if book_id not in history:
+                    return JsonResponse({'msg':"You can only comment on this book once you have borrowed it"})
+
+
+                if data['comment'].replace(" ","") == "":
+                    return JsonResponse({'msg':"Can't post empty comment"})
+
+                
+                name = user.fname + " " + user.lname
+
+                
+                book.reviews.append(name)
+                book.reviews.append(data['comment'])
+
+                book.save()
+
+                
+
+
+                return JsonResponse({'msg':"Comment was added successfully","task":"add", "name":name})
+
+            except Exception as e:
+                return JsonResponse({'msg':str(e)})
+                
+        else:
+            return JsonResponse({'msg':"method not supported"})
+
+
+    except:
+        return JsonResponse({'msg':"Unexpected error, try reloading the page"})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@csrf_exempt
+def rate(request,book_id,rating):
+    try:
+        if request.method == "POST":
+            try:
+                uid = request.session.get("uid")
+
+                if not uid:
+                    return JsonResponse({'msg':"User not logged in","task":"redirect"})
+
+                user = User.objects.get(pk=uid)
+                book = Book.objects.get(pk=book_id)
+
+                history = user.history
+
+                
+                if book_id not in history:
+                    return JsonResponse({'msg':"You can only rate a book once you have borrowed it"})
+                
+                
+                book_index = history.index(book_id)
+                rate_index = book_index + 1
+
+                
+                if history[rate_index] != "0":
+                    return JsonResponse({'msg':"You have already rated this book"})
+
+
+
+                total_rates = int(book.total_rates)
+
+                book.total_rates = total_rates + 1
+
+                book.rating = ((int(book.rating) + int(rating)) / (total_rates + 1)) * 2
+
+
+                book.save()
+
+                history[rate_index] = rating
+                user.save()
+
+
+
+
+                return JsonResponse({'msg':"You have successfully rated this book"})
             except Exception as e:
                 return JsonResponse({'msg':str(e)})
                 
