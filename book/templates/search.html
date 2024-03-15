@@ -2,13 +2,60 @@
 
 {% block head %}
 
-<link rel="stylesheet" href="../static/css/search.css">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/search.css' %}">
 {% endblock %}
 
 
 
 {% block body %}
+<div class = "index_container">
+
+    <div class = "index_nav">
+        <p class="name">Library</p>
+        <div class="account">
+            <div></div>
+        </div>
+    </div>
+
+    <div class = "index_mid">
+        <input class = "index_search_input" type="text" placeholder="{{ name }}">
+        <div class="index_search_button"><div></div></div>
+    </div>
+
+    <div class = "index_bottom">
+        <div class = "book_container">
+
+            {% for i in books %}
+                <a class = link href="/book/info/{{ i.id }}">
+                    <div class="book">
+                        <div class="book_left">
+                            {% load static %}
+                            <img src="{% static i.image %}">
+                        </div>
+    
+                        <div class="book_right">
+                            <p class="title">{{ i.title }}</p>
+                            <p class="author">{{ i.author }}</p>
+                            <p class="genre">{{ i.genre }}</p>
+                            <p class="rating">{{ i.rating }}/10</p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
 
 
-<script src="../static/js/search.js"></script>
+        </div>
+
+
+
+
+    </div>
+
+
+
+</div>
+
+{% load static %}
+<script src="{% static 'js/search.js' %}"></script>
 {% endblock %}

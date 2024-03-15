@@ -2,6 +2,21 @@
 
 let bookContainer = document.querySelector('.book_container');
 
+let search = document.querySelector('.index_search_button');
+let term = document.querySelector('.index_search_input');
+
+
+
+
+search.addEventListener('click',function(){
+
+    if(term.value.replace(/ /g,"") != ""){
+        window.location.href = "/book/search/title/" + term.value;
+    };
+
+});
+
+
 
 let host = 'http://127.0.0.1:8000/'
 let request = new Request(host,{

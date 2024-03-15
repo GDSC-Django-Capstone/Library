@@ -107,15 +107,15 @@ def search(request,book_name):
     try:
         if request.method == "GET":
 
-            return render(request,"register.html")
-        
-        elif request.method == "POST":
-            try:
-                data = json.loads(request.body)
+            books = Book.objects.filter(title__icontains=book_name)
 
-            except Exception as e:
-                return JsonResponse({'msg':str(e)})
-                
+            for i in books:
+                    i.image = "book/"+(str(i.image).split("/")[-1])
+
+
+            return render(request,"search.html",{"name":book_name,"books":books})
+        
+
         else:
             return JsonResponse({'msg':"method not supported"})
 
