@@ -10,6 +10,7 @@ let commentContainer = document.querySelector('.comments_container_top');
 let hostBorrow = 'http://127.0.0.1:8000/book/function/borrow/';
 let hostComment = 'http://127.0.0.1:8000/book/function/comment/';
 let hostRate = 'http://127.0.0.1:8000/book/function/rate/';
+let hostLoad = 'http://127.0.0.1:8000/book/info/';
 
 
 
@@ -123,3 +124,73 @@ bookContainer.addEventListener('click',function(e){
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let observer = new IntersectionObserver(entries=>{
+    let entry = entries[0];
+
+    let request = new Request(hostLoad+borrow.dataset.id + '/',{
+        method:'POST',
+    });
+
+    if(entry.isIntersecting){
+        fetch(request)
+        .then(response=>{
+            return response.json();
+        }).then(data=>{
+            if(data['data'] == "end"){
+                return;
+            }
+
+            let totalHtml = '';
+
+            data['data'].forEach((comment)=>{
+                
+                let html = `
+                    <div class="comment">
+                        <div class="comment_top">
+                            <div></div>
+                            <p>${comment[0]}</p>
+                        </div>
+
+                        <div class="comment_bottom">
+                            <p>${comment[1]}</p>
+                        </div>
+                    </div>
+                `;
+            
+                totalHtml = totalHtml + html;
+                
+            });
+            
+            commentContainer.insertAdjacentHTML('beforeend', totalHtml);
+            observer.observe(commentContainer.lastElementChild)
+
+
+        })
+        .catch(error=>{
+            console.error(error);
+        })
+
+        observer.unobserve(entry.target);
+    }
+
+},{
+    root:commentContainer,
+    rootMargin:"150px",
+});
+
+observer.observe(commentContainer.lastElementChild);

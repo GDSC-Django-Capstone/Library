@@ -17,7 +17,7 @@ def index(request):
             
                 books = Book.objects.all().order_by("-id")[:15]
 
-                request.session['bnum'] = 15
+                request.session['bnum'] = len(books)
 
                 #this is temporary, this will change after the add book form is completed
                 for i in books:

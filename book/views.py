@@ -30,17 +30,46 @@ def info(request,book_id):
             book = Book.objects.get(pk=book_id)
             image = "book/"+(str(book.image).split("/")[-1])
 
-            listed = book.reviews[-30:]
+            listed = book.reviews[0:30]
             reviews = []
 
             for i in range(int(len(listed)/2)):
-                reviews.insert(0,[listed[i*2],listed[(i*2)+1]])
+                reviews.append([listed[i*2],listed[(i*2)+1]])
+
+            request.session['cnum'] = len(listed)
             
             return render(request,"book.html", {'id':book.id,'title':book.title,'author':book.author,'genre':book.genre,'rating':book.rating,'amount':book.amount,'description':book.description,'image':image,'reviews':reviews})
         
         elif request.method == "POST":
             try:
-                data = json.loads(request.body)
+                cnum = request.session.get("cnum",0)
+                query = Book.objects.get(pk=book_id).reviews
+                buffer = 30
+
+                if(int(cnum) >= len(query)):
+                    return JsonResponse({'data':"end"})
+                
+
+                if cnum+buffer > len(query):
+                    comments = query[cnum:]
+                
+                else:
+                    comments = query[cnum:cnum+buffer]
+
+                request.session['cnum'] = cnum+len(comments)
+
+                data = {'data':[]}
+
+                for i in range(int(len(comments)/2)):
+                    data['data'].append([comments[i*2],comments[(i*2)+1]])
+                    
+
+                return JsonResponse(data)
+
+
+
+
+
 
             except Exception as e:
                 return JsonResponse({'msg':str(e)})
@@ -213,8 +242,8 @@ def comment(request,book_id):
                 name = user.fname + " " + user.lname
 
                 
-                book.reviews.append(name)
-                book.reviews.append(data['comment'])
+                book.reviews.insert(0,data['comment'])
+                book.reviews.insert(0,name)
 
                 book.save()
 
