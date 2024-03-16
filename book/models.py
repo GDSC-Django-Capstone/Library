@@ -12,7 +12,6 @@ class Book(models.Model):
     rating = models.IntegerField(default=0)
     total_rates = models.IntegerField(default=0)
     reviews = ArrayField(models.CharField(max_length=3000), blank=True, default=list)
-    lent = ArrayField(models.CharField(max_length=200), blank=True, default=list)
     image = models.ImageField(upload_to='./book/static/book')
 
 

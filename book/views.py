@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from book.models import Book
 from user.models import User
+from user.models import Tracker
 
 # Create your views here.
 from django.http import JsonResponse
@@ -176,8 +177,9 @@ def borrow(request,book_id):
                 user.history.append("0")
                 book.amount = book.amount-1
 
+                new_tracker = Tracker(tracking="lent",email=user.email,fname=user.fname,lname=user.lname,title=book.title)
 
-
+                new_tracker.save()
                 book.save()
                 user.save()
 

@@ -15,3 +15,18 @@ class User(models.Model):
 
     def __str__(self):
         return self.email
+
+
+
+class Tracker(models.Model):
+    tracking = models.CharField(max_length=10)
+    email = models.CharField(max_length=200)
+    fname = models.CharField(max_length=30, blank=True)
+    lname = models.CharField(max_length=30, blank=True)
+    title = models.CharField(max_length=200, blank=True)
+    uid = models.IntegerField(blank=True)
+    bid = models.IntegerField(blank=True)
+
+
+    def __str__(self):
+        return self.tracking

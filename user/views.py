@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from book.models import Book
 from user.models import User
+from user.models import Tracker
 
 # Create your views here.
 from django.http import JsonResponse
@@ -70,10 +71,27 @@ def return_book(request,book_id):
 
             if not uid or role != "user":
                 return JsonResponse({'msg':"Access Denied"})
+
+            
+            user = User.objects.get(pk=uid)
+
+            if str(book_id) not in user.borrowed:
+                return JsonResponse({'msg':"Check if you have successfully borrowed the book or try refreshing the page"})
             
 
-                        
-            return JsonResponse({'msg':"message"})
+            tracked = Tracker.objects.filter(uid=uid,bid=book_id)
+
+            if tracked:
+                return JsonResponse({'msg':"Your return request is already pending"})
+                
+            
+            book = Book.objects.get(pk=book_id)
+
+            new_tracker = Tracker(tracking="return",email=user.email,title=book.title,uid=user.id,bid=book_id)
+
+            new_tracker.save()
+            
+            return JsonResponse({'msg':"Return request has been sent successfully"})
 
         
             
