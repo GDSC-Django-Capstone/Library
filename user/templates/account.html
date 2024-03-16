@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Library management system.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Library</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/account.css' %}">
+
+</head>
+
+<body>
+    <div class="account_container">
+
+        <div class="account_nav">
+            <p class="name">Library</p>
+            <div class="account">
+                <div></div>
+            </div>
+        </div>
+
+        <div class="account_mid">
+            <p>Account Information</p>
+
+            <div class="account_info">
+
+                <div class="account_info_top">
+                    
+                    <div class="account_info_card">
+                        <p>First Name</p>
+                        <p>{{ fname }}</p>
+                    </div>
+
+                    <div class="account_info_card">
+                        <p>Last Name</p>
+                        <p>{{ lname }}</p>
+                    </div>
+
+                </div>
+
+
+                <div class="account_info_bottom">
+
+                    <div class="account_info_card">
+                        <p>Email</p>
+                        <p>{{ email }}</p>
+                    </div>
+
+                    <div class="account_info_card">
+                        <p>Password</p>
+                        <p>************</p>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="account_bottom">
+            
+            <p>Borrowed Books</p>
+
+            <div class="borrowed_info">
+
+                {% for i in books %}
+
+                    <a class = "link" href="/book/info/{{ i.id }}">
+                        <div class="book">
+                            <div class="book_left">
+                                {% load static %}
+                                <img src="{% static i.image %}">
+                            </div>
+        
+                            <div class="book_right">
+                            <p class="title">{{ i.title }}</p>
+                            <p class="author">{{ i.author }}</p>
+                            <p class="genre">{{ i.genre }}</p>
+                            <p class="rating">{{ i.rating }}/10</p>
+                        </div>
+
+                            <div class="overlay">
+                                <button data-bid = "{{ i.id }}">Return</button>
+                            </div>
+                        </div>
+                    </a>
+
+                {% endfor %}
+
+
+                
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>>
+    
+
+    {% load static %}
+    <script src="{% static 'js/account.js' %}"></script>
+</body>
+</html>

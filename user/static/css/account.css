@@ -1,0 +1,250 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+
+
+html{
+    font-size:10px;
+    /* font-family:'Courier New', Courier, monospace; */
+    font-family: monospace;
+}
+
+:root{
+    --greenish:#72887B;
+    --white:#FFFFFF;
+    --black:#000000;
+}
+
+body{
+    overflow:hidden;
+    background:black;
+}
+
+.account_container{
+    width:100vw;
+    min-height:100vh;
+    background:var(--greenish);
+    padding:20px 50px;
+    box-sizing:border-box;
+}
+
+
+    .account_nav{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:30px;
+    }
+
+        .name{
+            font-size:3rem;
+            font-weight:bold;
+        }
+
+        .account{
+            width:35px;
+            height:35px;
+            border-radius:50px;
+            background:var(--white);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+            .account>div{
+                width:30px;
+                height:30px;
+                border-radius:50px;
+                background-image:url('../access/account.svg');
+                background-size:cover;
+                background-repeat:no-repeat;
+                background-position:center;
+            }
+
+    .account_mid{
+        margin-bottom:40px;
+    }
+
+        .account_mid>p{
+            color:var(--white);
+            font-weight:bold;
+            text-decoration:underline;
+            font-size:2.5rem;
+            margin-bottom:30px;
+        }
+
+        .account_info{
+            width:fit-content;
+            margin:0 auto;
+        }
+
+            .account_info>div{
+                display:flex;
+                justify-content:center;
+                align-items:center;
+            }
+
+            .account_info>div>div:first-child{
+                margin-right:50px;
+            }
+                
+
+
+            .account_info_top{
+                margin-bottom:25px;
+            }
+
+            .account_info_bottom{}
+
+                .account_info_card{
+                    background:var(--white);
+                    border-radius:10px;
+                    padding:16px 15px;
+                    box-shadow:0px 4px 4px rgba(0,0,0,0.35);
+                    width:300px;
+                    height:80px;
+                    display:flex;
+                    flex-direction:column;
+                    justify-content:space-between;
+                    box-sizing:border-box;
+
+
+                }
+
+                .account_info_card>p:first-child{
+                    font-size:1.4rem;
+                }
+
+                .account_info_card>p:last-child{
+                    font-size:1.7rem;
+                    font-weight:bold;
+                }
+
+    .account_bottom{}
+
+        .account_bottom>p{
+            color:var(--white);
+            font-weight:bold;
+            text-decoration:underline;
+            font-size:2.5rem;
+            margin-bottom:30px;
+        }
+
+        .borrowed_info{
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:space-around;
+            align-items:center;
+            box-sizing:border-box;
+            padding:0px 100px;
+        }
+
+
+            .link{
+                text-decoration: none;
+                color: inherit;
+                cursor: pointer;
+            }
+
+                .book{
+                    display:flex;
+                    flex-wrap:wrap;
+                    width:300px;
+                    height:150px;
+                    border-radius:15px;
+                    background:var(--white);
+                    padding:5px;
+                    box-shadow:0px 4px 4px rgba(0,0,0,0.25);
+                    position:relative;
+                }
+
+                    .book_left{
+                        width:40%;
+                        height:100%;
+                        background:var(--greenish);
+                        border-radius:15px;
+                        overflow:hidden;
+                        display:flex;
+                        justify-content:center;
+                        align-items:center;
+                    }
+
+                        .book_left>img{
+                            display:block;
+                            width:100%;
+                            height:100%;
+                            object-fit:cover;
+                            border-radius:15px;
+                        }
+
+                    .book_right{
+                        padding:5px 10px;
+                        width:50%;
+                    }
+
+                        .title{
+                            font-size:2rem;
+                            font-weight:700;
+                            margin-bottom:40px;
+                            height:25px;
+                            overflow:hidden;
+                            white-space:nowrap;
+                            text-overflow: ellipsis;
+                        }
+
+                        .author{
+                            font-size:1.6rem;
+                            font-weight:600;
+                            margin-bottom:5px;
+                            height:20px;
+                            overflow:hidden;
+                            white-space:nowrap;
+                            text-overflow: ellipsis;
+                        }
+
+                        .genre{
+                            font-size:1.6rem;
+                            font-weight:600;
+                            margin-bottom:10px;
+                            height:20px;
+                            overflow:hidden;
+                            white-space:nowrap;
+                            text-overflow: ellipsis;
+                        }
+
+                        .rating{
+                            font-size:1.3rem;
+                            font-weight:600;
+                            text-align:end;
+                        }
+
+                    .book:hover > .overlay{
+                        display:flex;
+                    }
+
+                    .overlay{
+                        position:absolute;
+                        bottom:0px;
+                        left:0px;
+                        width:100%;
+                        height:30%;
+                        display:none;
+                        justify-content:center;
+                        align-items:center;
+                        background:rgba(0,0,0,0.8);
+                        border-radius:0px 0px 15px 15px;
+                    }
+
+                        
+                        .overlay>button{
+                            outline:none;
+                            border:none;
+                            background:var(--white);
+                            border-radius:10px;
+                            font-weight:bold;
+                            font-size:1.4rem;
+                            padding:5px 5px;
+                        }
+
+                            
