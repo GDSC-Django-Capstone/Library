@@ -24,8 +24,8 @@ class Tracker(models.Model):
     fname = models.CharField(max_length=30, blank=True)
     lname = models.CharField(max_length=30, blank=True)
     title = models.CharField(max_length=200, blank=True)
-    uid = models.IntegerField(blank=True)
-    bid = models.IntegerField(blank=True)
+    uid = models.IntegerField(null=True)
+    bid = models.IntegerField(null=True)
 
 
     def __str__(self):

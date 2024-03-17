@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/return.css' %}">
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="container">
+
+    <div class="navigation">
+
+        <p>Library Admin</p>
+
+        <div class="nav">
+            <a class="link" href="/user/admin/add/"><button class="nav_button">Add Book</button></a>
+            <a class="link" href="/user/admin/remove/"><button class="nav_button">Remove Book</button></a>
+            <a class="link" href="/user/admin/update/"><button class="nav_button">Update Book</button></a>
+            <a class="link" href="/user/admin/return/"><button class="nav_button selected">Return Book</button></a>
+            <a class="link" href="/user/admin/lent/"><button class="nav_button">Lent Books</button></a>
+
+        </div>
+
+        <div class="nav_bottom">
+            <p>Logout</p>
+            <a class="link" href="/user/super/add/"><p>Super Admin Center</p></a>
+        </div>
+
+    </div>
+
+
+    <div class="tasks">
+    
+        <div class="task">
+            
+            <div class="task_top">
+                <input class = "index_search_input" type="text" placeholder="Search">
+                <div class="index_search_button"><div></div></div>
+            </div>
+
+
+            <div class="task_bottom">
+                {% for r in tracked %}
+
+                    <div class="request">
+                        <div class="request_info">
+                            <p>{{ r.email }}</p>
+                            <p>{{ r.title }}</p>
+                        </div>
+
+                        <button class="return_button" data-uid="{{ r.uid }}" data-bid="{{ r.bid }}">Returned</button>
+                    </div>
+
+                {% endfor %}
+
+                
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+{% load static %}
+<script src="{% static 'js/return.js' %}"></script>
+{% endblock %}

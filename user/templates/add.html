@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/add.css' %}">
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="container">
+
+    <div class="navigation">
+
+        <p>Library Admin</p>
+
+        <div class="nav">
+            <a class="link" href="/user/admin/add/"><button class="nav_button selected">Add Book</button></a>
+            <a class="link" href="/user/admin/remove/"><button class="nav_button">Remove Book</button></a>
+            <a class="link" href="/user/admin/update/"><button class="nav_button">Update Book</button></a>
+            <a class="link" href="/user/admin/return/"><button class="nav_button">Return Book</button></a>
+            <a class="link" href="/user/admin/lent/"><button class="nav_button">Lent Books</button></a>
+
+        </div>
+
+        <div class="nav_bottom">
+            <p>Logout</p>
+            <a class="link" href="/user/super/add/"><p>Super Admin Center</p></a>
+        </div>
+
+    </div>
+
+
+    <div class="tasks">
+
+        <div class="task">
+
+            <div class="task_top">
+                <div>
+                    <p>Title:</p>
+                    <input class="title" type="text">
+                </div>
+
+                <div>
+                    <p>Author:</p>
+                    <input class="author" type="text">
+                </div>
+
+                <div>
+                    <p>Genre:</p>
+                    <input class="genre" type="text">
+                </div>
+
+                <div>
+                    <p>Amount:</p>
+                    <input class="amount" type="text">
+                </div>
+
+                <div>
+                    <p>Image:</p>
+                    <input class="file" type="file">
+                </div>
+
+            </div>
+
+            <div class="task_mid">
+                <p>Description:</p>
+
+                <textarea></textarea>
+            </div>
+
+            <div class="task_bottom">
+                <button>Add</button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+{% load static %}
+<script src="{% static 'js/add.js' %}"></script>
+{% endblock %}

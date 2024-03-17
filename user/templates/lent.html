@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/lent.css' %}">
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="container">
+
+    <div class="navigation">
+
+        <p>Library Admin</p>
+
+        <div class="nav">
+            <a class="link" href="/user/admin/add/"><button class="nav_button">Add Book</button></a>
+            <a class="link" href="/user/admin/remove/"><button class="nav_button">Remove Book</button></a>
+            <a class="link" href="/user/admin/update/"><button class="nav_button">Update Book</button></a>
+            <a class="link" href="/user/admin/return/"><button class="nav_button">Return Book</button></a>
+            <a class="link" href="/user/admin/lent/"><button class="nav_button selected">Lent Books</button></a>
+
+        </div>
+
+        <div class="nav_bottom">
+            <p>Logout</p>
+            <a class="link" href="/user/super/add/"><p>Super Admin Center</p></a>
+        </div>
+
+    </div>
+
+
+    <div class="tasks">
+    
+        <div class="task">
+            
+            <div class="task_top">
+                <input class = "index_search_input" type="text" placeholder="Search">
+                <div class="index_search_button"><div></div></div>
+            </div>
+
+
+            <div class="task_bottom">
+
+
+                {% for l in tracked %}
+
+                    <div class="lent">
+                        <p>{{ l.email }}</p>
+                        <div class="lent_info">
+                            <div>
+                                <p>First Name:</p>
+                                <p>{{ l.fname }}</p>
+                            </div>
+
+                            <div>
+                                <p>Last Name:</p>
+                                <p>{{ l.lname }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+                
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+{% load static %}
+<script src="{% static 'js/lent.js' %}"></script>
+{% endblock %}

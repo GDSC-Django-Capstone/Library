@@ -19,7 +19,6 @@ def index(request):
 
                 request.session['bnum'] = len(books)
 
-                #this is temporary, this will change after the add book form is completed
                 for i in books:
                     i.image = "book/"+(str(i.image).split("/")[-1])
 
@@ -133,11 +132,25 @@ def login(request):
 
                 request.session['uid'] = logged_user.id
                 request.session['role'] = logged_user.role
-                request.session['bnum'] = 0
-                request.session['cnum'] = 0
 
 
-                return JsonResponse({'msg':'User logged in successfully','task':'redirect'})
+                if logged_user.role == "admin" or logged_user.role == "super":
+                    request.session['rnum'] = 0
+                    request.session['lnum'] = 0
+
+                    return JsonResponse({'msg':'User logged in successfully','task':'admin'})
+
+                elif logged_user.role == "user":
+                    request.session['bnum'] = 0
+                    request.session['cnum'] = 0
+
+                    return JsonResponse({'msg':'User logged in successfully','task':'redirect'})
+
+                
+                
+
+
+                # return JsonResponse({'msg':'User logged in successfully','task':'redirect'})
             
             except Exception as e:
                 return JsonResponse({'msg':str(e)})

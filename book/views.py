@@ -177,7 +177,7 @@ def borrow(request,book_id):
                 user.history.append("0")
                 book.amount = book.amount-1
 
-                new_tracker = Tracker(tracking="lent",email=user.email,fname=user.fname,lname=user.lname,title=book.title)
+                new_tracker = Tracker(tracking="lent",email=user.email,fname=user.fname,lname=user.lname,title=book.title,uid=uid,bid=book_id)
 
                 new_tracker.save()
                 book.save()

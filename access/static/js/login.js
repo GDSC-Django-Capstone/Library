@@ -38,6 +38,8 @@ loginButton.addEventListener('click',function(){
             let redirect = hostArray.slice(0,(hostArray.length-2)).join("/");
             
             window.location.replace(redirect);
+        }else if(data['task'] == 'admin'){
+            window.location.replace("http://127.0.0.1:8000/user/admin/add/");
         }
 
     })
