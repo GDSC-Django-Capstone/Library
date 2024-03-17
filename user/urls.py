@@ -11,4 +11,8 @@ urlpatterns = [
     path("admin/updater/<str:book_id>/", views.updater),
     path("admin/return/", views.returnBook),
     path("admin/lent/", views.lent),
+
+    path("super/add/", views.superadd),
+    path("super/remove/", views.superremove),
+    path("super/ban/", views.superban),
 ]

@@ -1,0 +1,213 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+
+
+html{
+    font-size:10px;
+    /* font-family:'Courier New', Courier, monospace; */
+    font-family: monospace;
+}
+
+:root{
+    --greenish:#72887B;
+    --light_blue:#2D7EF8;
+    --dark_blue:#121A26;
+    --white:#FFFFFF;
+    --black:#000000;
+    --red:#CE2D4F;
+}
+
+
+body{
+    overflow:hidden;
+}
+
+
+.container{
+    width:100vw;
+    height:100vh;
+    background:var(--greenish);
+    box-sizing:border-box;
+    display:flex;
+    justify-content:start;
+}
+
+    .navigation{
+        background:var(--dark_blue);
+        height:100%;
+        width:23%;
+        box-sizing:border-box;
+        padding:15px 20px;
+        border-radius:0px 15px 15px 0px;
+        position:relative;
+        box-shadow:4px 0px 4px rgba(0,0,0,0.4);
+    }
+
+        .navigation>p{
+            color:var(--white);
+            font-size:2.5rem;
+            font-weight:bold;
+            margin-bottom:30px;
+
+        }
+
+        .nav{
+            display:flex;
+            flex-direction:column;
+            gap:25px;
+            padding:0px 30px;
+
+        }
+
+            .link{
+                text-decoration: none;
+                color: inherit;
+                cursor: pointer;
+            }
+
+            .nav_button{
+                background:var(--white);
+                color:var(--black);
+                font-size:1.4rem;
+                outline:none;
+                border:none;
+                width:100%;
+                border-radius:10px;
+                height:40px;
+                font-size:1.5rem;
+                font-weight:bold;
+
+            }
+
+                .nav_button:hover{
+                    cursor:pointer;
+                }
+
+            .selected{
+                background:var(--light_blue);
+                color:var(--white);
+            }
+
+        
+        .nav_bottom{
+            text-align:center;
+            position:absolute;
+            bottom:10px;
+            left:0px;
+            width:100%;
+        }
+
+            .nav_bottom p{
+                color:var(--red);
+                font-size:1.7rem;
+                text-decoration:underline;
+                margin-bottom:10px;
+            }
+
+                .nav_bottom p:hover{
+                    cursor:pointer;
+                }
+
+    
+    .tasks{
+        height:100%;
+        width:77%;
+        box-sizing:border-box;
+        padding:30px 60px;
+    }
+
+        .task{
+            background:var(--white);
+            height:40%;
+            width:50%;
+            border-radius:15px;
+            box-sizing:border-box;
+            padding:40px 50px;
+            margin:0 auto;
+            margin-top:100px;
+            position:relative;
+        }
+
+            .task_top{
+                margin-bottom:20px;
+                width:100%;
+            }
+
+                .task_top>div{
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    margin-bottom:20px;
+                }
+
+                    .task_top>div>p{
+                        font-weight:bold;
+                        font-size:2rem;
+                    }
+
+                    .task_top>div>input{
+                        border:2px solid black;
+                        border-radius:10px;
+                        width:60%;
+                        height:35px;
+                        box-sizing:border-box;
+                        padding:10px;
+                    }
+
+                
+
+
+            .task_bottom{
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                position:absolute;
+                bottom:0px;
+                left:0px;
+                width:100%;
+                padding:20px 0px;
+            }
+
+                .task_bottom>button{
+                    width:55%;
+                    height:50px;
+                    background:var(--dark_blue);
+                    color:white;
+                    outline:none;
+                    border:none;
+                    border-radius:10px;
+                    font-size:2rem;
+                    font-weight:bold;
+                    box-shadow:0px 4px 5px rgba(0,0,0,0.6);
+                }
+
+                    .task_bottom>button:hover{
+                        cursor:pointer;
+                    }
+
+            
+
+
+
+
+
+
+
+
+
+
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color:var(--dark_blue);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background-color:rgb(100, 99, 99);
+}

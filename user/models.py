@@ -5,8 +5,8 @@ from django.contrib.postgres.fields import ArrayField
 class User(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=30)
-    fname = models.CharField(max_length=30)
-    lname = models.CharField(max_length=30)
+    fname = models.CharField(max_length=30,null=True)
+    lname = models.CharField(max_length=30,null=True)
     borrowed = ArrayField(models.CharField(max_length=200), blank=True, default=list)
     history = ArrayField(models.CharField(max_length=200), blank=True, default=list)
     banned = models.BooleanField(default=False)

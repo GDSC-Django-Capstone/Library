@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/superadd.css' %}">
+{% endblock %}
+
+
+
+{% block body %}
+
+<div class="container">
+
+    <div class="navigation">
+
+        <p>Super Admin</p>
+
+        <div class="nav">
+            <a class="link" href="/user/super/add/"><button class="nav_button selected">Add Admin</button></a>
+            <a class="link" href="/user/super/remove/"><button class="nav_button">Remove Admin</button></a>
+            <a class="link" href="/user/super/ban/"><button class="nav_button">Ban Users</button></a>
+
+        </div>
+
+        <div class="nav_bottom">
+            <p>Logout</p>
+            <a class="link" href="/user/admin/add/"><p>Admin Center</p></a>
+        </div>
+
+    </div>
+
+
+    <div class="tasks">
+
+        <div class="task">
+
+            <div class="task_top">
+                
+                <div>
+                    <p>Email:</p>
+                    <input class="superemail" type="text">
+                </div>
+
+                <div>
+                    <p>Password:</p>
+                    <input class="superpassword" type="text">
+                </div>
+
+            </div>
+
+            
+
+
+
+            <div class="task_bottom">
+                <button>Add</button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+{% load static %}
+<script src="{% static 'js/superadd.js' %}"></script>
+{% endblock %}

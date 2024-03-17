@@ -588,3 +588,190 @@ def lent(request):
 
     except:
         return JsonResponse({'msg':"Unexpected error, try reloading the page"})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# superuser
+
+
+
+@csrf_exempt
+def superadd(request):
+    try:
+        zrole = request.session.get("role",0)
+
+        if zrole != "super":
+            return JsonResponse({'msg':"Access Denied!"})
+            
+
+        if request.method == "GET":
+
+            return render(request,"superadd.html")
+
+        elif request.method == "POST":
+
+            data = json.loads(request.body)
+
+            email = data['email']
+            password = data['password']
+
+            new_admin = User(email=email,password=password,role='admin')
+            new_admin.save()
+
+            
+
+
+           
+            return JsonResponse({"msg":"New admin created successfully","task":"clear"})
+
+
+
+        else:
+            return JsonResponse({'msg':"method not supported"})
+
+
+    except:
+        return JsonResponse({'msg':"Unexpected error, try reloading the page"})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@csrf_exempt
+def superremove(request):
+    try:
+        zrole = request.session.get("role",0)
+
+        if zrole != "super":
+            return JsonResponse({'msg':"Access Denied!"})
+            
+        if request.method == "GET":
+
+            return render(request,"superremove.html")
+
+        elif request.method == "POST":
+
+            data = json.loads(request.body)
+
+            email = data['email']
+
+
+            admin = User.objects.get(email=email)
+
+            admin.delete()
+
+            
+
+
+           
+            return JsonResponse({"msg":"Admin removed successfully","task":"clear"})
+            
+        
+
+
+        else:
+            return JsonResponse({'msg':"method not supported"})
+
+
+    
+    except User.DoesNotExist:
+        return JsonResponse({'msg':"Admin not found"})
+
+
+    except:
+        return JsonResponse({'msg':"Unexpected error, try reloading the page"})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@csrf_exempt
+def superban(request):
+    try:
+        zrole = request.session.get("role",0)
+
+        if zrole != "super":
+            return JsonResponse({'msg':"Access Denied!"})
+            
+        if request.method == "GET":
+
+            return render(request,"superban.html")
+
+        elif request.method == "POST":
+
+            data = json.loads(request.body)
+
+            email = data['email']
+
+
+            user = User.objects.get(email=email)
+
+            user.banned = True
+
+            user.save()
+
+            
+
+
+           
+            return JsonResponse({"msg":"User banned successfully","task":"clear"})
+        
+            
+
+        else:
+            return JsonResponse({'msg':"method not supported"})
+
+    except User.DoesNotExist:
+        return JsonResponse({'msg':"User not found"})
+
+    except:
+        return JsonResponse({'msg':"Unexpected error, try reloading the page"})
